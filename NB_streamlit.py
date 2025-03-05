@@ -2,10 +2,14 @@ import streamlit as st
 import pandas as pd
 import joblib
 import numpy as np
+import os
 
-# Load the trained model and label encoders
-model = joblib.load("C:/CDS/Data Science/Assignment DS/10 Naive Bayes/NB solution/naive_bayes_model.pkl")
-label_encoders = joblib.load("C:/CDS/Data Science/Assignment DS/10 Naive Bayes/NB solution/label_encoders.pkl")
+# Load the trained model and label encoders using relative paths
+model_path = os.path.join(os.path.dirname(__file__), "naive_bayes_model.pkl")
+encoders_path = os.path.join(os.path.dirname(__file__), "label_encoders.pkl")
+
+model = joblib.load(model_path)
+label_encoders = joblib.load(encoders_path)
 
 # Define the input fields
 st.title("Salary Prediction App")
