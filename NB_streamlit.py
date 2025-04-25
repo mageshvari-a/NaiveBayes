@@ -2,6 +2,8 @@ import streamlit as st
 import pandas as pd
 import joblib
 import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
 
 # Load the trained model and label encoders
 model = joblib.load("naive_bayes_model.pkl")
@@ -39,6 +41,40 @@ for feature in label_encoders:
             print(f"Encoding error for {feature}: {e}")
     elif feature != "Salary":  # Ignore warning for 'Salary'
         print(f"Warning: {feature} not found in user_df.")
+
+# Display the age distribution
+st.subheader("Distribution of Age")
+plt.figure(figsize=(8, 5))
+sns.histplot(train_data["age"], bins=20, kde=True)
+plt.title("Age Distribution")
+plt.xlabel("Age")
+plt.ylabel("Frequency")
+st.pyplot(plt)
+
+# Display education level counts
+st.subheader("Education Level Counts")
+plt.figure(figsize=(10, 5))
+sns.countplot(data=train_data, x="education", order=train_data['education'].value_counts().index)
+plt.xticks(rotation=45)
+plt.title("Education Level Counts")
+plt.ylabel("Count")
+st.pyplot(plt)
+
+# Display Age vs Salary boxplot
+st.subheader("Age vs Salary")
+plt.figure(figsize=(8, 5))
+sns.boxplot(data=train_data, x="Salary", y="age")
+plt.title("Age vs Salary")
+st.pyplot(plt)
+
+# Display Occupation vs Salary countplot
+st.subheader("Occupation vs Salary")
+plt.figure(figsize=(12, 5))
+sns.countplot(data=train_data, x="occupation", hue="Salary", order=train_data['occupation'].value_counts().index)
+plt.xticks(rotation=45)
+plt.title("Occupation vs Salary")
+plt.ylabel("Count")
+st.pyplot(plt)
 
 # Debugging: Print DataFrame columns and Label Encoders used
 print("DataFrame columns:", user_df.columns)
