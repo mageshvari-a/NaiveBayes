@@ -5,6 +5,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 
+train_data = pd.read_csv("SalaryData_Train.csv")
+
 # Load the trained model and label encoders
 model = joblib.load("naive_bayes_model.pkl")
 label_encoders = joblib.load("label_encoders.pkl")
